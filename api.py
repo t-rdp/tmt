@@ -38,7 +38,7 @@ def post_translation():
     return jsonify({
         "translations": [{
             "detected_source_language": source_lang.upper(),
-            "text": "[TMT]" + translate(text, target_lang, source_lang) + "[提示：此为机翻结果，仅供参考。]"
+            "text": "[TMT] " + translate(text, target_lang, source_lang)
         }]
     })
 
