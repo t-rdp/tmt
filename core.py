@@ -13,11 +13,10 @@ def translate(text, target_lang, source_lang='auto'):
         return ''
 
     if len(text) > 900:
-        return '字数过长，无法翻译！'
+        return '抱歉，翻译失败。错误原因：字数过长，无法翻译！'
 
     if source_lang == 'auto':
         source_lang = detect(text)
-        print("Auto detect: " + source_lang)
 
     if source_lang == target_lang:
         return text
@@ -29,6 +28,6 @@ def translate(text, target_lang, source_lang='auto'):
         if target_lang == 'zh':
             return translate_en_zh(text)
     else:
-        return translate(translate(text, 'en', source_lang), target_lang, 'en')
+        return '抱歉，翻译失败。错误原因：语言不支持。' # translate(translate(text, 'en', source_lang), target_lang, 'en')
 
-    return '抱歉，翻译失败。'
+    return '抱歉，翻译失败。错误原因：未知错误！'
