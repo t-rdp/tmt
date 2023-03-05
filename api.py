@@ -21,6 +21,9 @@ app = Flask(__name__)
 def get_index():
     return redirect('https://github.com/t-rdp/tmt', 302)
 
+@app.route('/health', methods=['GET'])
+def health_check():
+    return jsonify({"status": "online"})
 
 @app.route('/translate', methods=['POST'])
 def post_translation():
@@ -42,5 +45,5 @@ def post_translation():
 
 if __name__ == '__main__':
     # app.run()
-    http_server = WSGIServer(('0.0.0.0', 80), app)
+    http_server = WSGIServer(('0.0.0.0', 9300), app)
     http_server.serve_forever()
