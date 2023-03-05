@@ -21,13 +21,15 @@ def translate(text, target_lang, source_lang='auto'):
     if source_lang == target_lang:
         return text
 
-    if target_lang == 'en':  # To EN
+    if target_lang == 'en':
         if source_lang == 'ja':
             return translate_ja_en(text)
-    elif source_lang == 'en':  # From EN
+    elif source_lang == 'en':
         if target_lang == 'zh':
             return translate_en_zh(text)
+    elif source_lang in ("en", "ja"):
+        return translate(translate(text, 'en', source_lang), target_lang, 'en')
     else:
-        return '抱歉，翻译失败。错误原因：语言不支持。' # translate(translate(text, 'en', source_lang), target_lang, 'en')
+        return '抱歉，翻译失败。错误原因：语言不支持。'
 
     return '抱歉，翻译失败。错误原因：未知错误！'
