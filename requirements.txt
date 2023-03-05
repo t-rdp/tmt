@@ -4,3 +4,4 @@ sentencepiece
 langdetect
 flask
 sacremoses
+gevent

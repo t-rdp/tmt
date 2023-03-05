@@ -1,8 +1,10 @@
 from flask import Flask, jsonify, request, abort, redirect
 from langdetect import detect
 import os
-
 from core import translate
+from gevent.pywsgi import WSGIServer
+from gevent import monkey
+monkey.patch_all()
 
 env_auth_key = ''
 
@@ -12,15 +14,15 @@ try:
 except KeyError:
     print('No AUTH_KEY specified.')
 
-app = Flask('TMT')
+app = Flask(__name__)
 
 
 @app.route('/', methods=['GET'])
 def get_index():
-    redirect('https://github.com/t-rdp/tmt', 302)
+    return redirect('https://github.com/t-rdp/tmt', 302)
 
 
-@app.route('/', methods=['POST'])
+@app.route('/translate', methods=['POST'])
 def post_translation():
     auth_key = request.form.get('auth_key')
 
@@ -39,4 +41,6 @@ def post_translation():
 
 
 if __name__ == '__main__':
-    app.run()
+    # app.run()
+    http_server = WSGIServer(('0.0.0.0', 80), app)
+    http_server.serve_forever()

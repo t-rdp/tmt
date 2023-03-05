@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 
+print("Loading models....")
 from translators.ja2en import translate_ja_en
 from translators.en2zh import translate_en_zh
+print("Finished!")
 
 from langdetect import detect
 
